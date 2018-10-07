@@ -1,0 +1,7 @@
+{
+  "name": "babel-plugin-tester",
+  "private": true,
+  "dependencies": {
+    "@babel/core": "^7.1.2"
+  }
+}
