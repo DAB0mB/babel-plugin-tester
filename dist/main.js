@@ -1,0 +1,1 @@
+(()=>{"use strict";console.log("Sum(20,30) is : ".concat(50))})();
