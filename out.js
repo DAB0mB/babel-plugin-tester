@@ -1,11 +1,20 @@
 "use strict";
 
-var _axios = _interopRequireDefault(require("axios"));
+//import axios from 'axios';
+function a() {
+  console.group("a");
+  console.log('a1');
+  console.log('a2');
+  console.log('a3');
+  console.groupEnd();
+}
 
-var _fireMock2 = _interopRequireDefault(require("@hawaijar/fireMock"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-var axiosProxy = new Proxy(_axios["default"], handlers);
-var _fireMock = _fireMock2["default"],
-    handlers = _fireMock.handlers;
+function b() {
+  console.group("b");
+  console.log('b1');
+  console.log('b2');
+  console.log('b3');
+  console.groupEnd();
+}
+a();
+b();

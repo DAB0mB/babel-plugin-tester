@@ -2,19 +2,21 @@ const babel = require("@babel/core");
 const fs = require("fs");
 const plugin = require("./plugin");
 const importPlugin = require("babel-plugin-import");
+// const consoleGroupify = require("babel-plugin-console-groupify");
 
 const code = fs.readFileSync(`${__dirname}/in.js`).toString();
 
 const transformedCode = babel.transform(code, {
   plugins: [
-    [
-      importPlugin,
-		{
-			"libraryName": "lodash",
-			"libraryDirectory": "",
-			"camel2DashComponentName": false,  // default: true
-		},
-    ],
+  	// consoleGroupify
+    // [
+    //   importPlugin,
+    // 	{
+    // 		"libraryName": "lodash",
+    // 		"libraryDirectory": "",
+    // 		"camel2DashComponentName": false,  // default: true
+    // 	},
+    // ],
     [
       plugin,
       {

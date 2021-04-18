@@ -1,4 +1,4 @@
-const handlers = {};
+const { createHandler } = require("./index");
 
 function createProxy(
   module,
@@ -20,30 +20,40 @@ function insertFireMockImport(t) {
   const source = t.StringLiteral("@hawaijar/fireMock");
   return t.importDeclaration([specifier], source);
 }
-function getHandlers(t) {
-  const handlersIdentifier = t.identifier("handlers");
+function getHandlerFactory(t) {
+  const handlersIdentifier = t.identifier("createHandler");
   const variableDeclarator = t.variableDeclarator(
     t.objectPattern([t.objectProperty(handlersIdentifier, handlersIdentifier)]),
     t.identifier("fireMock")
   );
   return t.variableDeclaration("const", [variableDeclarator]);
 }
+function addConsoleLog(t, param) {
+  const memberExpression = t.memberExpression(
+    t.identifier("console"),
+    t.identifier("log")
+  );
+  const arguments = [t.identifier(param)];
+  return t.callExpression(memberExpression, arguments);
+}
 
-module.exports = (babel) => {
+function fireMocks(babel) {
   const { types: t } = babel;
   return {
     visitor: {
-      ImportDeclaration(path = { insertAfter: {} }) {
-        const { node } = path;
+      ImportDeclaration: function (path) {
+        const { node, container } = path;
         if (node.source.value === "axios") {
           const module = node.source.value;
           path.insertAfter(insertFireMockImport(t));
-          path.insertAfter(getHandlers(t));
+          path.insertAfter(getHandlerFactory(t));
           //path.insertAfter(t.expressionStatement(t.stringLiteral("A little high, little low.")));
           path.insertAfter(createProxy(module, t));
+          path.insertAfter(addConsoleLog(t, "handlers"));
         }
         console.log(path);
       },
     },
   };
-};
+}
+module.exports = fireMocks;
