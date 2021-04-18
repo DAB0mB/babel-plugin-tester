@@ -1,12 +1,7 @@
 import axios from 'axios';
+import React from 'react';
+import _ from 'lodash';
+import Styles from '../button/style.css';
+import {css} from 'emotion';
 
-// function a() {
-// 	console.log('a1');
-// 	console.log('a2')
-// 	console.log('a3')
-// }
-// function b() {
-// 	console.log('b1');
-// 	console.log('b2')
-// 	console.log('b3')
-// }
+const a = 120;
